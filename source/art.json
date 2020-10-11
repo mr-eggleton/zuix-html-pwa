@@ -1,0 +1,70 @@
+{
+    "type": "FeatureCollection",
+    "features": [{
+        "type": "Feature",
+        "properties": {
+            "shape": "Marker",
+            "name": "Test Art 1",
+            "category": "art",
+            "description": "This is some stuff",
+            "image": "https://s0.geograph.org.uk/geophotos/02/89/48/2894879_7b67f95e.jpg"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-1.434494, 53.391563]
+        },
+        "id": "538f72d4-7d5f-4320-a30b-59226a1bbcb2"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "shape": "Marker",
+            "name": "Test Art 2",
+            "category": "art",
+            "description": "this is other stuff",
+            "image": "https://streetartsheffield.com/img/xl/2019-05-12%2016.24.41.jpg"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-1.432751, 53.391819]
+        },
+        "id": "0bd7a9ea-3699-4fb2-88cb-0ee9bcd0eaf9"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "shape": "Polygon",
+            "name": "Route",
+            "category": "default"
+        },
+        "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [-1.434172, 53.391601],
+                    [-1.433609, 53.391656],
+                    [-1.433293, 53.391537],
+                    [-1.43281, 53.391643],
+                    [-1.432177, 53.391659],
+                    [-1.431598, 53.391749],
+                    [-1.431678, 53.391912],
+                    [-1.434473, 53.391758],
+                    [-1.434172, 53.391601]
+                ]
+            ]
+        },
+        "id": "7d12c554-6291-43a2-b648-65c7ade3d62a"
+    }, {
+        "type": "Feature",
+        "properties": {
+            "shape": "Marker",
+            "name": "Test Art MEG",
+            "category": "art",
+            "description": "this is more other stuff",
+            "image": "https://canalrivertrust.org.uk/refresh/media/huge/41792.jpg"
+        },
+        "geometry": {
+            "type": "Point",
+            "coordinates": [-1.533296, 53.390654]
+        },
+        "id": "adaa4b18-9fc6-4597-ae53-6d121249cf9d"
+    }]
+}

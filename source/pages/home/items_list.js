@@ -6,9 +6,27 @@ zuix.controller(function(cp) {
 
   cp.create = function() {
     let url = cp.view().attr('data-o-rss');
-    // Use a proxy to prevent CORS policy restrictions errors
-    url = '//cors-anywhere.herokuapp.com/'+url;
-    fetchList(url);
+    console.log("create", url);
+    if (url){
+      // Use a proxy to prevent CORS policy restrictions errors
+      url = '//cors-anywhere.herokuapp.com/'+url;
+      fetchList(url);
+      return true;
+    }
+    
+    url = cp.view().attr('data-o-geojson-cors');
+    if (url){
+      // Use a proxy to prevent CORS policy restrictions errors
+      url = '//cors-anywhere.herokuapp.com/'+url;
+      fetchGeoJSON(url);
+      return true;
+    }
+    url = cp.view().attr('data-o-geojson');
+    if (url){
+      fetchGeoJSON(url);
+      return true;
+    }
+    
   };
 
   function refresh() {
@@ -44,6 +62,68 @@ zuix.controller(function(cp) {
       zuix.componentize();
     }
   }
+  
+  
+  // Download GeoJSON feed
+  function fetchGeoJSON(GeoJSONUrl) {
+    console.log("fetchGeoJSON", GeoJSONUrl);
+    // CORS proxy https://cors-anywhere.herokuapp.com/
+    zx.$.ajax({
+      url: GeoJSONUrl,
+      success: function(res) {
+        console.log("GeoJSONUrl", res);
+        itemsList = parseGeoJSON(res);
+        refresh();
+      },
+      error: function(err) {
+        // TODO: handle error
+        console.log("Fail GeoJSONUrl", GeoJSONUrl);
+      }
+    });
+    
+  }
+
+  // Parse GeoJSON feed and create a JSON object out of it
+  function parseGeoJSON(GeoJSONText) {
+    let GeoJSON = JSON.parse(GeoJSONText);
+    //console.log("parseGeoJSON", GeoJSON["features"]);
+    const items = [];
+    if(GeoJSON["type"]=="FeatureCollection"){
+      GeoJSON["features"].filter(function(feature){
+        return feature["geometry"]["type"] == "Point"
+      }).forEach(function(feature){
+        console.log(feature);
+        const title = feature["properties"]["name"];
+        const description = feature["properties"]["description"];
+        const pubDate = "now";
+        const link = "hi";//getText(this.find('link'));
+       
+        const images = [{
+            url: feature["properties"]["image"],
+            width: 200,//this.attr('width'),
+            height: 200//this.attr('height')
+          }];
+
+          let cover;
+          /*if (i < 5 && images[3] != null) */
+          cover = images[0].url;
+          /*else if (i > 3 && images[4] != null) cover = images[4].url;
+          */
+          const date = pubDate; // TODO: format date
+          items.push({
+            title,
+            link,
+            cover,
+            date,
+            images
+          });
+      });
+    
+    }
+    return items;
+  }
+
+
 
   // Download RSS feed
   function fetchList(rssUrl) {
